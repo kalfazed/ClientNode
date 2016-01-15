@@ -68,17 +68,16 @@ app.get("/reBoot", function(req, res){
 	       console.log("rebooting");
     });
     
-    rebootTestInfo = process.execFile('curl.bat', [rebootSucceedIP], null, function(error, stdout, stderr){
-	       console.log(error);
-	       console.log("rebooting");
-    });
-    
     res.redirect(rebootSucceedIP);
 });
 
 
-
 app.listen(8000);
+
 console.log("Agent is running at port 8000");
+bootTestInfo = process.execFile('curl.bat', [bootSucceedIP], null, function(error, stdout, stderr){
+	   console.log(error);
+	   console.log("boot finished");
+});
 
 module.exports = app;
