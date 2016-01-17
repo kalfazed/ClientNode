@@ -28,11 +28,10 @@ var process = require('child_process');
 var CDITest;
 var CDITestInfo;
 var rebootTest;
-var rebootTestInfo;
+var bootTestInfo;
 
 
 var controllerIP = "http://192.168.130.115:8888";
-var rebootSucceedIP = controllerIP + "/rebootSucceed";
 var cdiSucceedIP = controllerIP + "/cdiSucceed";
 var bootSucceedIP = controllerIP + "/bootSucceed";
 
@@ -52,14 +51,6 @@ app.get("/cdiTest", function(req, res){
     res.redirect(cdiSucceedIP);
 });
 
-app.get("/", function(req, res){
-    bootTestInfo = process.execFile('curl.bat', [rebootSucceedIP], null, function(error, stdout, stderr){
-	       console.log(error);
-	       console.log("rebooting");
-    });
-    
-});
-
 
 app.get("/reBoot", function(req, res){
     
@@ -68,7 +59,7 @@ app.get("/reBoot", function(req, res){
 	       console.log("rebooting");
     });
     
-    res.redirect(rebootSucceedIP);
+    res.redirect(bootSucceedIP);
 });
 
 
