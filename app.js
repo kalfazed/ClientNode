@@ -33,21 +33,24 @@ var bootTestInfo;
 
 var controllerIP = "http://192.168.130.115:8888";
 var cdiSucceedIP = controllerIP + "/cdiSucceed";
+var cdiFailedIP = controllerIP + "/cdiFail";
 var bootSucceedIP = controllerIP + "/bootSucceed";
 
 
 app.get("/cdiTest", function(req, res){
     
-    CDITest = process.execFile('CDITest.bat', [], null, function(error, stdout, stderr){
+    CDITest = process.execFile('CDITest.bat', [controllerIP], null, function(error, stdout, stderr){
         	console.log(error);
+            console.log(stderr);
+            console.log(stdout);
         	console.log("Running CDI Test");
     });
-
+   /* 
     CDITestInfo = process.execFile('curl.bat', [cdiSucceedIP], null, function(error, stdout, stderr){
         	console.log(error);
         	console.log("Running CDI Test");
     });
-        
+     */  
     res.redirect(cdiSucceedIP);
 });
 
@@ -66,6 +69,8 @@ app.get("/reBoot", function(req, res){
 app.listen(8000);
 
 console.log("Agent is running at port 8000");
+
+
 bootTestInfo = process.execFile('curl.bat', [bootSucceedIP], null, function(error, stdout, stderr){
 	   console.log(error);
 	   console.log("boot finished");

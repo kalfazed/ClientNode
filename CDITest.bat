@@ -34,4 +34,26 @@ DiskInfoX64.exe /CopyExit
 
 ren DiskInfoX64.txt %filename%
 
-move %filename% C:\Users\John\Desktop\AutoCDITest\
+set src=%fileName%
+set trg=%fileName%
+set tmp=%temp%.\%fileName%
+if "%trg%"=="" set trg=%src%
+cmd /A /c type "%src%">"%tmp%"
+move /y "%tmp%" "%trg%"
+
+move "%trg%" C:\Users\John\Desktop\AutoCDITest\
+
+cd C:\Users\John\Desktop\AutoCDITest\
+
+set pass=%~1%/cdiSucceed
+set fail=%~1%/cdiFail
+
+
+FINDSTR /c:"FIXSTARS" %fileName% > NUL
+IF %ERRORLEVEL% EQU 0 (
+   curl %pass%
+) ELSE (
+   curl %fail%
+)
+
+PAUSE

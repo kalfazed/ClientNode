@@ -1,2 +1,2 @@
-cd C:\Users\John\Desktop
-reboot.exe.lnk
+cd C:\Windows\System32
+shutdown.exe /r /t 0
